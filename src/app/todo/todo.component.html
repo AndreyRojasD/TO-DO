@@ -1,0 +1,36 @@
+<div class="card">
+
+
+    <div>
+        <p class="date">{{day}}</p>
+        <p class="month">{{month}}</p>
+        <p class="year"> {{year}}</p>
+        <p class="day">{{dayOfWeek}}</p>
+    </div>
+    <div>
+    <input placeholder="New Task"  [(ngModel)]="data" >
+    <button class=" update " *ngIf="update ==true" (click)="Update()"  color="primary"> 
+    <mat-icon>update</mat-icon>
+    </button>
+    <button *ngIf="update ==false" (click)="add()" class="add" color="success">
+    <mat-icon>add</mat-icon>
+    </button>
+    <button class="orderbutton" (click)="sort()" > 
+        Sort
+        </button>
+    </div>
+ 
+
+
+ <div class="container">
+    <div *ngFor="let data of record"  >
+    <div  class="notes" >
+            <p class="notetxt" (click)="Select(data); market(data)"  [class.marked]="isMarked(data)">Task: {{data}}</p> 
+                <mat-icon (click)="delete(data)" class="buttonTrash">delete</mat-icon>
+    </div>
+</div>
+ </div>
+
+</div>
+
+
