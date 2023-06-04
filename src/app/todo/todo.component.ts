@@ -13,19 +13,19 @@ export class TodoComponent {
   update = false;
   datosFormateados: string[] = [];
   index: number = 0;
-  day:any
-  month:any
-  year:any
-  dayOfWeek:any
+  day: any;
+  month: any;
+  year: any;
+  dayOfWeek: any;
 
-count = 0
+  count = 0;
   constructor(private todoService: TodoService) {}
 
   async ngOnInit() {
     try {
       this.record = await this.todoService.GetItem(this.Name);
-      console.log(this.record)
-      await this.getFormatteDate()
+      console.log(this.record);
+      await this.getFormatteDate();
     } catch (error) {
       console.error(error);
     }
@@ -81,9 +81,8 @@ count = 0
     }
   }
 
- 
   market(data: any): void {
-    console.log(`Data en component${data}`)
+    console.log(`Data en component${data}`);
     this.todoService.market(data);
   }
 
@@ -92,7 +91,7 @@ count = 0
   }
 
   formatData() {
-    this.datosFormateados = this.record.map((elemento:any, i:any) => {
+    this.datosFormateados = this.record.map((elemento: any, i: any) => {
       if (i === this.index) {
         return `<span style="text-decoration: line-through;">${elemento}</span>`;
       }
@@ -100,29 +99,52 @@ count = 0
     });
   }
 
-  getFormatteDate(){
-    try{
-    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
-    const currentDate = new Date();
-    this.day = currentDate.getDate();
-    this.month = months[currentDate.getMonth()];
-    this.year = currentDate.getFullYear();
-    this.dayOfWeek = daysOfWeek[currentDate.getDay()];
-    }catch(error){
-      console.error(error)
+  getFormatteDate() {
+    try {
+      const daysOfWeek = [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+      ];
+      const months = [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sept',
+        'Oct',
+        'Nov',
+        'Dec',
+      ];
+      const currentDate = new Date();
+      this.day = currentDate.getDate();
+      this.month = months[currentDate.getMonth()];
+      this.year = currentDate.getFullYear();
+      this.dayOfWeek = daysOfWeek[currentDate.getDay()];
+    } catch (error) {
+      console.error(error);
     }
-
   }
 
- sort(){
-  try{
-  this.record = this.record.sort()
-  }catch(error){
-    console.log(error)
+  sort() {
+    try {
+      this.record = this.record.sort();
+    } catch (error) {
+      console.log(error);
+    }
   }
- }
 
-
- 
+  async DeleteAllTasks() {
+    console.log('Entro a borrar');
+    await this.todoService.delete(this.Name);
+    this.record = await this.todoService.GetItem(this.Name);
+  }
 }
