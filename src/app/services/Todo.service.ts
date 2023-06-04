@@ -53,7 +53,7 @@ export class TodoService {
 
   async market(data: any): Promise<void> {
     try {
-      const markedItems = localStorage.getItem('markedItems');
+      const markedItems =  localStorage.getItem('markedItems');
       let markedArray: string[] = markedItems ? JSON.parse(markedItems) : [];
       console.log(markedArray)
       if (!this.isMarked(data)) {
@@ -92,6 +92,18 @@ export class TodoService {
     }
   }
   
+  async delete(name:any){
+
+  try{
+    const newArray:any = [] 
+    localStorage.setItem(name, JSON.stringify(newArray))   
+  }catch(error){
+    console.error(`Error in delete all tasks: ${error}`)
+  }
+
+ 
+
+  }
   
   
 
